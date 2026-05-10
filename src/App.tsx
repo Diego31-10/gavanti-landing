@@ -4,6 +4,7 @@ import { About } from './components/About'
 import { Forge } from './components/Forge'
 import { Footer } from './components/Footer'
 import { History } from './pages/History'
+import { ProjectsPage } from './pages/ProjectsPage'
 
 function Landing() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/history" element={<History />} />
+        <Route path="/projects" element={<ProjectsPage />} />
       </Routes>
     </BrowserRouter>
   )

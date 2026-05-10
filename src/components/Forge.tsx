@@ -178,7 +178,7 @@ function PingPongVideoCard({ fwd, rev, label, title, href = '#', delay = 0 }: Pi
 
 const VIDEO_CARDS: PingPongVideoCardProps[] = [
   { fwd: '/videos/2.mp4', rev: '/videos/2REVERSE.mov', label: 'Core', title: 'Our Technical Core.', delay: 0 },
-  { fwd: '/videos/3.mp4', rev: '/videos/3REVERSE.mov', label: 'Projects', title: 'What We Ship.', delay: 0.08 },
+  { fwd: '/videos/3.mp4', rev: '/videos/3REVERSE.mov', label: 'Projects', title: 'What We Ship.', href: '/projects', delay: 0.08 },
   { fwd: '/videos/4.mp4', rev: '/videos/4REVERSE.mov', label: 'History', title: 'Where It All Began.', href: '/history', delay: 0.16 },
   { fwd: '/videos/5.mp4', rev: '/videos/5REVERSE.mov', label: 'Culture', title: 'Made in Cuenca.', delay: 0.24 },
 ]
