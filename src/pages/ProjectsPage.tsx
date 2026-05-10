@@ -67,7 +67,7 @@ function VideoSlideCard({ project, active }: { project: Project; active: boolean
         /* Static image / SVG background */
         <div style={{
           position: 'absolute', inset: 0,
-          background: '#0c0c0c',
+          background: '#F5F0EB',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}>
           <img
