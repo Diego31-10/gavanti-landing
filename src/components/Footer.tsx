@@ -69,7 +69,7 @@ export function Footer() {
               </span>
             </h3>
             <a
-              href="mailto:hello@gavanti.org"
+              href="mailto:support@gavanti.org"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -83,7 +83,7 @@ export function Footer() {
               onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.85)')}
               onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
             >
-              hello@gavanti.org
+              support@gavanti.org
               <ArrowUpRight size={12} />
             </a>
           </div>
