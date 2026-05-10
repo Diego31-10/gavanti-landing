@@ -12,23 +12,19 @@ interface Project {
   label: string
   title: string
   description: string
-  fwd: string
-  rev: string
+  fwd?: string
+  rev?: string
   href: string
-  logo?: string         // path to SVG/PNG logo shown instead of text title
-  logoName?: string     // wordmark text rendered in wide-tracking style
+  image?: string        // static image/SVG used as card background instead of video
 }
 
 const PROJECTS: Project[] = [
   {
-    label: 'Ecosistema de Economía Circular',
-    title: 'CHAKANA',
-    logoName: 'CHAKANA',
-    logo: '/LogoChakana.svg',
+    label: 'Proyecto 01',
+    title: 'Chakana',
     description: 'Ecosistema de Economía Circular.',
-    fwd: '/videos/2.mp4',
-    rev: '/videos/2REVERSE.mov',
-    href: '#',
+    image: '/LogoChakana.svg',
+    href: 'https://chakana.gavanti.org',
   },
   {
     label: 'What We Ship',
@@ -63,26 +59,43 @@ const BIG_WORDS = 'GAVANTI  PROJECTS  COLLECTIVE  GAVANTI  PROJECTS'
 function VideoSlideCard({ project, active }: { project: Project; active: boolean }) {
   const fwdRef = useRef<HTMLVideoElement>(null)
   const revRef = useRef<HTMLVideoElement>(null)
-  usePingPong(fwdRef, revRef, active)
+  usePingPong(fwdRef, revRef, active && !project.image)
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-      <video
-        ref={fwdRef}
-        muted
-        playsInline
-        preload="auto"
-        src={project.fwd}
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-      />
-      <video
-        ref={revRef}
-        muted
-        playsInline
-        preload="auto"
-        src={project.rev}
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0 }}
-      />
+      {project.image ? (
+        /* Static image / SVG background */
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: '#0c0c0c',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <img
+            src={project.image}
+            alt={project.title}
+            style={{ width: '55%', height: '55%', objectFit: 'contain', opacity: 0.92 }}
+          />
+        </div>
+      ) : (
+        <>
+          <video
+            ref={fwdRef}
+            muted
+            playsInline
+            preload="auto"
+            src={project.fwd}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+          <video
+            ref={revRef}
+            muted
+            playsInline
+            preload="auto"
+            src={project.rev}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0 }}
+          />
+        </>
+      )}
 
       {/* Gradient */}
       <div style={{
@@ -98,45 +111,20 @@ function VideoSlideCard({ project, active }: { project: Project; active: boolean
         padding: 'clamp(24px, 4vw, 52px)', gap: '20px',
       }}>
         <div>
-          {/* Logo mark — icon + wordmark for branded projects */}
-          {project.logo && project.logoName ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-              <img
-                src={project.logo}
-                alt={project.logoName}
-                style={{ width: '48px', height: '48px', objectFit: 'contain', flexShrink: 0 }}
-              />
-              <span style={{
-                fontSize: 'clamp(22px, 3.5vw, 44px)',
-                fontWeight: 300,
-                letterSpacing: '0.45em',
-                textTransform: 'uppercase',
-                color: '#fff',
-                fontFamily: 'Almarai, sans-serif',
-                lineHeight: 1,
-                textShadow: '0 2px 24px rgba(0,0,0,0.5)',
-              }}>
-                {project.logoName}
-              </span>
-            </div>
-          ) : (
-            <>
-              <p style={{
-                fontSize: '9px', letterSpacing: '0.22em', textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.4)', fontFamily: 'Almarai, sans-serif', margin: '0 0 10px 0',
-              }}>
-                {project.label}
-              </p>
-              <h2 style={{
-                fontSize: 'clamp(28px, 5vw, 72px)', fontWeight: 900,
-                letterSpacing: '-0.04em', lineHeight: 0.88, textTransform: 'uppercase',
-                color: '#fff', fontFamily: 'Almarai, sans-serif', margin: '0 0 12px 0',
-                textShadow: '0 2px 32px rgba(0,0,0,0.6)',
-              }}>
-                {project.title}
-              </h2>
-            </>
-          )}
+          <p style={{
+            fontSize: '9px', letterSpacing: '0.22em', textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.4)', fontFamily: 'Almarai, sans-serif', margin: '0 0 10px 0',
+          }}>
+            {project.label}
+          </p>
+          <h2 style={{
+            fontSize: 'clamp(28px, 5vw, 72px)', fontWeight: 900,
+            letterSpacing: '-0.04em', lineHeight: 0.88, textTransform: 'uppercase',
+            color: '#fff', fontFamily: 'Almarai, sans-serif', margin: '0 0 12px 0',
+            textShadow: '0 2px 32px rgba(0,0,0,0.6)',
+          }}>
+            {project.title}
+          </h2>
           <p style={{
             fontSize: 'clamp(11px, 1vw, 14px)', color: 'rgba(255,255,255,0.5)',
             fontFamily: 'Almarai, sans-serif', fontWeight: 300, lineHeight: 1.6,
@@ -146,8 +134,10 @@ function VideoSlideCard({ project, active }: { project: Project; active: boolean
           </p>
         </div>
 
-        <Link
-          to={project.href}
+        <a
+          href={project.href}
+          target={project.href.startsWith('http') ? '_blank' : undefined}
+          rel={project.href.startsWith('http') ? 'noopener noreferrer' : undefined}
           style={{
             display: 'inline-flex', alignItems: 'center', gap: '10px', alignSelf: 'flex-start',
             padding: '13px 24px', background: '#fff', color: '#000', borderRadius: '9999px',
@@ -159,7 +149,7 @@ function VideoSlideCard({ project, active }: { project: Project; active: boolean
         >
           <span>View Project</span>
           <ArrowUpRight size={12} />
-        </Link>
+        </a>
       </div>
     </div>
   )
