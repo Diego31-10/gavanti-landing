@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(ffmpeg -version)",
+      "Bash(ffmpeg -y -i 1REVERSE.mov -c:v libx264 -crf 18 -movflags +faststart -an 1REVERSE.mp4)",
+      "Bash(ffmpeg -y -i 2REVERSE.mov -c:v libx264 -crf 18 -movflags +faststart -an 2REVERSE.mp4)",
+      "Bash(ffmpeg -y -i 3REVERSE.mov -c:v libx264 -crf 18 -movflags +faststart -an 3REVERSE.mp4)",
+      "Bash(ffmpeg -y -i 4REVERSE.mov -c:v libx264 -crf 18 -movflags +faststart -an 4REVERSE.mp4)",
+      "Bash(ffmpeg -y -i 5REVERSE.mov -c:v libx264 -crf 18 -movflags +faststart -an 5REVERSE.mp4)",
+      "Bash(ffmpeg -y -i 6REVERSE.mov -c:v libx264 -crf 18 -movflags +faststart -an 6REVERSE.mp4)"
+    ]
+  }
+}
