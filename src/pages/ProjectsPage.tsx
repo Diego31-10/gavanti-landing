@@ -15,13 +15,17 @@ interface Project {
   fwd: string
   rev: string
   href: string
+  logo?: string         // path to SVG/PNG logo shown instead of text title
+  logoName?: string     // wordmark text rendered in wide-tracking style
 }
 
 const PROJECTS: Project[] = [
   {
-    label: 'Technical Core',
-    title: 'Engineering Depth',
-    description: 'Systems built for scale, precision, and long-term durability.',
+    label: 'Ecosistema de Economía Circular',
+    title: 'CHAKANA',
+    logoName: 'CHAKANA',
+    logo: '/LogoChakana.svg',
+    description: 'Ecosistema de Economía Circular.',
     fwd: '/videos/2.mp4',
     rev: '/videos/2REVERSE.mov',
     href: '#',
@@ -94,20 +98,45 @@ function VideoSlideCard({ project, active }: { project: Project; active: boolean
         padding: 'clamp(24px, 4vw, 52px)', gap: '20px',
       }}>
         <div>
-          <p style={{
-            fontSize: '9px', letterSpacing: '0.22em', textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.4)', fontFamily: 'Almarai, sans-serif', margin: '0 0 10px 0',
-          }}>
-            {project.label}
-          </p>
-          <h2 style={{
-            fontSize: 'clamp(28px, 5vw, 72px)', fontWeight: 900,
-            letterSpacing: '-0.04em', lineHeight: 0.88, textTransform: 'uppercase',
-            color: '#fff', fontFamily: 'Almarai, sans-serif', margin: '0 0 12px 0',
-            textShadow: '0 2px 32px rgba(0,0,0,0.6)',
-          }}>
-            {project.title}
-          </h2>
+          {/* Logo mark — icon + wordmark for branded projects */}
+          {project.logo && project.logoName ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
+              <img
+                src={project.logo}
+                alt={project.logoName}
+                style={{ width: '48px', height: '48px', objectFit: 'contain', flexShrink: 0 }}
+              />
+              <span style={{
+                fontSize: 'clamp(22px, 3.5vw, 44px)',
+                fontWeight: 300,
+                letterSpacing: '0.45em',
+                textTransform: 'uppercase',
+                color: '#fff',
+                fontFamily: 'Almarai, sans-serif',
+                lineHeight: 1,
+                textShadow: '0 2px 24px rgba(0,0,0,0.5)',
+              }}>
+                {project.logoName}
+              </span>
+            </div>
+          ) : (
+            <>
+              <p style={{
+                fontSize: '9px', letterSpacing: '0.22em', textTransform: 'uppercase',
+                color: 'rgba(255,255,255,0.4)', fontFamily: 'Almarai, sans-serif', margin: '0 0 10px 0',
+              }}>
+                {project.label}
+              </p>
+              <h2 style={{
+                fontSize: 'clamp(28px, 5vw, 72px)', fontWeight: 900,
+                letterSpacing: '-0.04em', lineHeight: 0.88, textTransform: 'uppercase',
+                color: '#fff', fontFamily: 'Almarai, sans-serif', margin: '0 0 12px 0',
+                textShadow: '0 2px 32px rgba(0,0,0,0.6)',
+              }}>
+                {project.title}
+              </h2>
+            </>
+          )}
           <p style={{
             fontSize: 'clamp(11px, 1vw, 14px)', color: 'rgba(255,255,255,0.5)',
             fontFamily: 'Almarai, sans-serif', fontWeight: 300, lineHeight: 1.6,
